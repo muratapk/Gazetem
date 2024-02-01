@@ -1,0 +1,84 @@
+﻿@model IEnumerable<WebApplication3.Models.Gazete>
+
+@{
+    ViewData["Title"] = "Index";
+    Layout = "~/Views/Shared/_AdminLayout.cshtml";
+}
+
+<h1>Index</h1>
+
+<p>
+    <a asp-action="Create">Create New</a>
+</p>
+<table class="table">
+    <thead>
+        <tr>
+            <th>
+                @Html.DisplayNameFor(model => model.GazeteAdi)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.GazeteLogo)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.GazeteSlogan)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.GazeteEmail)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.GazetFacebook)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.GazeteInstagram)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.GazeteYoutube)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.GazeteTelefon)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.GazeteAdres)
+            </th>
+            <th></th>
+        </tr>
+    </thead>
+    <tbody>
+@foreach (var item in Model) {
+        <tr>
+            <td>
+                @Html.DisplayFor(modelItem => item.GazeteAdi)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.GazeteLogo)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.GazeteSlogan)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.GazeteEmail)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.GazetFacebook)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.GazeteInstagram)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.GazeteYoutube)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.GazeteTelefon)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.GazeteAdres)
+            </td>
+            <td>
+                <a asp-action="Edit" asp-route-id="@item.GazeteId">Edit</a> |
+                <a asp-action="Details" asp-route-id="@item.GazeteId">Details</a> |
+                <a asp-action="Delete" asp-route-id="@item.GazeteId">Delete</a>
+            </td>
+        </tr>
+}
+    </tbody>
+</table>

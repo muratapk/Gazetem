@@ -1,0 +1,48 @@
+﻿@model IEnumerable<WebApplication3.Models.Kulanıcılar>
+
+@{
+    ViewData["Title"] = "Index";
+    Layout = "~/Views/Shared/_AdminLayout.cshtml";
+}
+
+<h1>Index</h1>
+
+<p>
+    <a asp-action="Create">Create New</a>
+</p>
+<table class="table">
+    <thead>
+        <tr>
+            <th>
+                @Html.DisplayNameFor(model => model.KulaniciSifre)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.KulaniciAdi)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.YetkiId)
+            </th>
+            <th></th>
+        </tr>
+    </thead>
+    <tbody>
+@foreach (var item in Model) {
+        <tr>
+            <td>
+                @Html.DisplayFor(modelItem => item.KulaniciSifre)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.KulaniciAdi)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.YetkiId)
+            </td>
+            <td>
+                <a asp-action="Edit" asp-route-id="@item.KulanıcıId">Edit</a> |
+                <a asp-action="Details" asp-route-id="@item.KulanıcıId">Details</a> |
+                <a asp-action="Delete" asp-route-id="@item.KulanıcıId">Delete</a>
+            </td>
+        </tr>
+}
+    </tbody>
+</table>

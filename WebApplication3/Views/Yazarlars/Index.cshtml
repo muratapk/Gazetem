@@ -1,0 +1,55 @@
+﻿@model IEnumerable<WebApplication3.Models.Yazarlar>
+
+@{
+    ViewData["Title"] = "Index";
+    Layout = "~/Views/Shared/_AdminLayout.cshtml";
+}
+
+<h1>Index</h1>
+
+<p>
+    <a asp-action="Create">Create New</a>
+</p>
+<table class="table">
+    <thead>
+        <tr>
+            <th>
+                @Html.DisplayNameFor(model => model.YazarAd)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.YazarResim)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.YazarEmail)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.YazarSifre)
+            </th>
+            <th></th>
+        </tr>
+    </thead>
+    <tbody>
+@foreach (var item in Model) {
+        <tr>
+            <td>
+                @Html.DisplayFor(modelItem => item.YazarAd)
+            </td>
+            <td>
+                <img src="/Yazarimg/@item.YazarResim" height="100" width="100" />
+                @Html.DisplayFor(modelItem => item.YazarResim)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.YazarEmail)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.YazarSifre)
+            </td>
+            <td>
+                <a asp-action="Edit" asp-route-id="@item.YazarId">Edit</a> |
+                <a asp-action="Details" asp-route-id="@item.YazarId">Details</a> |
+                <a asp-action="Delete" asp-route-id="@item.YazarId">Delete</a>
+            </td>
+        </tr>
+}
+    </tbody>
+</table>

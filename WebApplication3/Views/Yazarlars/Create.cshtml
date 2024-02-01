@@ -1,0 +1,49 @@
+﻿@model WebApplication3.Models.Yazarlar
+
+@{
+    ViewData["Title"] = "Create";
+    Layout = "~/Views/Shared/_AdminLayout.cshtml";
+}
+
+<h1>Create</h1>
+
+<h4>Yazarlar</h4>
+<hr />
+<div class="row">
+    <div class="col-md-4">
+        <form asp-action="Create" enctype="multipart/form-data">
+            <div asp-validation-summary="ModelOnly" class="text-danger"></div>
+            <div class="form-group">
+                <label asp-for="YazarAd" class="control-label"></label>
+                <input asp-for="YazarAd" class="form-control" />
+                <span asp-validation-for="YazarAd" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <label asp-for="YazarResim" class="control-label"></label>
+                <input type="file" asp-for="YazarImage"  class="form-control"/>
+                <span asp-validation-for="YazarResim" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <label asp-for="YazarEmail" class="control-label"></label>
+                <input asp-for="YazarEmail" class="form-control" />
+                <span asp-validation-for="YazarEmail" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <label asp-for="YazarSifre" class="control-label"></label>
+                <input asp-for="YazarSifre" class="form-control" />
+                <span asp-validation-for="YazarSifre" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <input type="submit" value="Create" class="btn btn-primary" />
+            </div>
+        </form>
+    </div>
+</div>
+
+<div>
+    <a asp-action="Index">Back to List</a>
+</div>
+
+@section Scripts {
+    @{await Html.RenderPartialAsync("_ValidationScriptsPartial");}
+}

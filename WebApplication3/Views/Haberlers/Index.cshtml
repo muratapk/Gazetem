@@ -1,0 +1,84 @@
+﻿@model IEnumerable<WebApplication3.Models.Haberler>
+
+@{
+    ViewData["Title"] = "Index";
+    Layout = "~/Views/Shared/_AdminLayout.cshtml";
+}
+
+<h1>Index</h1>
+
+<p>
+    <a asp-action="Create">Create New</a>
+</p>
+<table class="table">
+    <thead>
+        <tr>
+            <th>
+                @Html.DisplayNameFor(model => model.HaberBaslik)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.HaberKonu)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.Haberİcerik)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.ResimId)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.Katagori)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.YazarId)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.HaberTarihi)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.HaberManset)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.KonumId)
+            </th>
+            <th></th>
+        </tr>
+    </thead>
+    <tbody>
+@foreach (var item in Model) {
+        <tr>
+            <td>
+                @Html.DisplayFor(modelItem => item.HaberBaslik)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.HaberKonu)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.Haberİcerik)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.ResimId)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.Katagori.KatagoriId)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.YazarId)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.HaberTarihi)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.HaberManset)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.KonumId)
+            </td>
+            <td>
+                <a asp-action="Edit" asp-route-id="@item.HaberId">Edit</a> |
+                <a asp-action="Details" asp-route-id="@item.HaberId">Details</a> |
+                <a asp-action="Delete" asp-route-id="@item.HaberId">Delete</a>
+            </td>
+        </tr>
+}
+    </tbody>
+</table>

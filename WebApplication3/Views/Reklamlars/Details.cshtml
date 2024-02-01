@@ -1,0 +1,37 @@
+﻿@model WebApplication3.Models.Reklam
+
+@{
+    ViewData["Title"] = "Details";
+    Layout = "~/Views/Shared/_AdminLayout.cshtml";
+}
+
+<h1>Details</h1>
+
+<div>
+    <h4>Reklamlar</h4>
+    <hr />
+    <dl class="row">
+        <dt class = "col-sm-2">
+            @Html.DisplayNameFor(model => model.ReklamKonusu)
+        </dt>
+        <dd class = "col-sm-10">
+            @Html.DisplayFor(model => model.ReklamKonusu)
+        </dd>
+        <dt class = "col-sm-2">
+            @Html.DisplayNameFor(model => model.ReklamResim)
+        </dt>
+        <dd class = "col-sm-10">
+            @Html.DisplayFor(model => model.ReklamResim)
+        </dd>
+        <dt class = "col-sm-2">
+            @Html.DisplayNameFor(model => model.KonumId)
+        </dt>
+        <dd class = "col-sm-10">
+            @Html.DisplayFor(model => model.KonumId)
+        </dd>
+    </dl>
+</div>
+<div>
+    <a asp-action="Edit" asp-route-id="@Model?.ReklamId">Edit</a> |
+    <a asp-action="Index">Back to List</a>
+</div>

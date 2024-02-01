@@ -1,0 +1,75 @@
+﻿@model WebApplication3.Models.Gazete
+
+@{
+    ViewData["Title"] = "Edit";
+    Layout = "~/Views/Shared/_AdminLayout.cshtml";
+}
+
+<h1>Edit</h1>
+
+<h4>Gazete</h4>
+<hr />
+<div class="row">
+    <div class="col-md-4">
+        <form asp-action="Edit">
+            <div asp-validation-summary="ModelOnly" class="text-danger"></div>
+            <input type="hidden" asp-for="GazeteId" />
+            <div class="form-group">
+                <label asp-for="GazeteAdi" class="control-label"></label>
+                <input asp-for="GazeteAdi" class="form-control" />
+                <span asp-validation-for="GazeteAdi" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <label asp-for="GazeteLogo" class="control-label"></label>
+                <input asp-for="GazeteLogo" class="form-control" />
+                <span asp-validation-for="GazeteLogo" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <label asp-for="GazeteSlogan" class="control-label"></label>
+                <input asp-for="GazeteSlogan" class="form-control" />
+                <span asp-validation-for="GazeteSlogan" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <label asp-for="GazeteEmail" class="control-label"></label>
+                <input asp-for="GazeteEmail" class="form-control" />
+                <span asp-validation-for="GazeteEmail" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <label asp-for="GazetFacebook" class="control-label"></label>
+                <input asp-for="GazetFacebook" class="form-control" />
+                <span asp-validation-for="GazetFacebook" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <label asp-for="GazeteInstagram" class="control-label"></label>
+                <input asp-for="GazeteInstagram" class="form-control" />
+                <span asp-validation-for="GazeteInstagram" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <label asp-for="GazeteYoutube" class="control-label"></label>
+                <input asp-for="GazeteYoutube" class="form-control" />
+                <span asp-validation-for="GazeteYoutube" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <label asp-for="GazeteTelefon" class="control-label"></label>
+                <input asp-for="GazeteTelefon" class="form-control" />
+                <span asp-validation-for="GazeteTelefon" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <label asp-for="GazeteAdres" class="control-label"></label>
+                <input asp-for="GazeteAdres" class="form-control" />
+                <span asp-validation-for="GazeteAdres" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <input type="submit" value="Save" class="btn btn-primary" />
+            </div>
+        </form>
+    </div>
+</div>
+
+<div>
+    <a asp-action="Index">Back to List</a>
+</div>
+
+@section Scripts {
+    @{await Html.RenderPartialAsync("_ValidationScriptsPartial");}
+}
