@@ -11,7 +11,7 @@
 <hr />
 <div class="row">
     <div class="col-md-4">
-        <form asp-action="Create">
+        <form asp-action="Create" enctype="multipart/form-data">
             <div asp-validation-summary="ModelOnly" class="text-danger"></div>
             <div class="form-group">
                 <label asp-for="HaberBaslik" class="control-label"></label>
@@ -30,9 +30,9 @@
                 <span asp-validation-for="Haberİcerik" class="text-danger"></span>
             </div>
             <div class="form-group">
-                <label asp-for="ResimId" class="control-label"></label>
-                <input asp-for="ResimId" class="form-control" />
-                <span asp-validation-for="ResimId" class="text-danger"></span>
+                <label asp-for="MansetResim" class="control-label"></label>
+                <input type="file" asp-for="PictureImage" class="form-control" />
+                <span asp-validation-for="PictureImage" class="text-danger"></span>
             </div>
             <div class="form-group">
                 <label asp-for="KatagoriId" class="control-label"></label>
@@ -40,7 +40,7 @@
             </div>
             <div class="form-group">
                 <label asp-for="YazarId" class="control-label"></label>
-                <input asp-for="YazarId" class="form-control" />
+                <select asp-for="YazarId" class="form-control" asp-items="ViewBag.YazarId"></select>
                 <span asp-validation-for="YazarId" class="text-danger"></span>
             </div>
             <div class="form-group">
@@ -55,7 +55,7 @@
             </div>
             <div class="form-group">
                 <label asp-for="KonumId" class="control-label"></label>
-                <input asp-for="KonumId" class="form-control" />
+                <select asp-for="KonumId" class="form-control" asp-items="ViewBag.KonumId"></select>
                 <span asp-validation-for="KonumId" class="text-danger"></span>
             </div>
             <div class="form-group">

@@ -23,7 +23,7 @@
                 @Html.DisplayNameFor(model => model.Haberİcerik)
             </th>
             <th>
-                @Html.DisplayNameFor(model => model.ResimId)
+                @Html.DisplayNameFor(model => model.MansetResim)
             </th>
             <th>
                 @Html.DisplayNameFor(model => model.Katagori)
@@ -56,7 +56,8 @@
                 @Html.DisplayFor(modelItem => item.Haberİcerik)
             </td>
             <td>
-                @Html.DisplayFor(modelItem => item.ResimId)
+                <img src="/Mansetimg/@item.MansetResim" height="100" width="100"/>
+                
             </td>
             <td>
                 @Html.DisplayFor(modelItem => item.Katagori.KatagoriId)

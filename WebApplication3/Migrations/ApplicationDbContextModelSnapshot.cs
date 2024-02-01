@@ -87,7 +87,7 @@ namespace WebApplication3.Migrations
                         .IsRequired()
                         .HasColumnType("nvarchar(max)");
 
-                    b.Property<int>("HaberManset")
+                    b.Property<int?>("HaberManset")
                         .HasColumnType("int");
 
                     b.Property<DateTime>("HaberTarihi")
@@ -103,8 +103,9 @@ namespace WebApplication3.Migrations
                     b.Property<int>("KonumId")
                         .HasColumnType("int");
 
-                    b.Property<int>("ResimId")
-                        .HasColumnType("int");
+                    b.Property<string>("MansetResim")
+                        .IsRequired()
+                        .HasColumnType("nvarchar(max)");
 
                     b.Property<int>("YazarId")
                         .HasColumnType("int");
@@ -117,8 +118,6 @@ namespace WebApplication3.Migrations
                     b.HasIndex("KatagoriId");
 
                     b.HasIndex("KonumId");
-
-                    b.HasIndex("ResimId");
 
                     b.HasIndex("YazarlarYazarId");
 
@@ -222,11 +221,16 @@ namespace WebApplication3.Migrations
 
                     SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("ResimId"), 1L, 1);
 
+                    b.Property<int?>("HaberId")
+                        .HasColumnType("int");
+
                     b.Property<string>("ResimAd")
                         .IsRequired()
                         .HasColumnType("nvarchar(max)");
 
                     b.HasKey("ResimId");
+
+                    b.HasIndex("HaberId");
 
                     b.ToTable("Resimlers");
                 });
@@ -320,12 +324,6 @@ namespace WebApplication3.Migrations
                         .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
 
-                    b.HasOne("WebApplication3.Models.Resimler", "Resimler")
-                        .WithMany("Haberlers")
-                        .HasForeignKey("ResimId")
-                        .OnDelete(DeleteBehavior.Cascade)
-                        .IsRequired();
-
                     b.HasOne("WebApplication3.Models.Yazarlar", "Yazarlar")
                         .WithMany("Habers")
                         .HasForeignKey("YazarlarYazarId");
@@ -333,8 +331,6 @@ namespace WebApplication3.Migrations
                     b.Navigation("Katagori");
 
                     b.Navigation("Konumlar");
-
-                    b.Navigation("Resimler");
 
                     b.Navigation("Yazarlar");
                 });
@@ -359,6 +355,15 @@ namespace WebApplication3.Migrations
                     b.Navigation("Konumlar");
                 });
 
+            modelBuilder.Entity("WebApplication3.Models.Resimler", b =>
+                {
+                    b.HasOne("WebApplication3.Models.Haberler", "Haberler")
+                        .WithMany("Resimlers")
+                        .HasForeignKey("HaberId");
+
+                    b.Navigation("Haberler");
+                });
+
             modelBuilder.Entity("WebApplication3.Models.Yorumlar", b =>
                 {
                     b.HasOne("WebApplication3.Models.Haberler", "Haberlers")
@@ -370,6 +375,8 @@ namespace WebApplication3.Migrations
 
             modelBuilder.Entity("WebApplication3.Models.Haberler", b =>
                 {
+                    b.Navigation("Resimlers");
+
                     b.Navigation("Yorumlars");
                 });
 
@@ -383,11 +390,6 @@ namespace WebApplication3.Migrations
                     b.Navigation("Habers");
 
                     b.Navigation("Reklamlars");
-                });
-
-            modelBuilder.Entity("WebApplication3.Models.Resimler", b =>
-                {
-                    b.Navigation("Haberlers");
                 });
 
             modelBuilder.Entity("WebApplication3.Models.Yazarlar", b =>

@@ -48,7 +48,10 @@ namespace WebApplication3.Controllers
         // GET: Haberlers/Create
         public IActionResult Create()
         {
-            ViewData["KatagoriId"] = new SelectList(_context.katagoris, "KatagoriId", "KatagoriId");
+            ViewData["KatagoriId"] = new SelectList(_context.katagoris, "KatagoriId", "KatagoriAdi");
+            ViewData["YazarId"] = new SelectList(_context.Yazarlars, "YazarId", "YazarAd");
+            ViewData["KonumId"] = new SelectList(_context.Konumlars, "KonumId", "KonumAdi");
+
             return View();
         }
 
@@ -57,15 +60,31 @@ namespace WebApplication3.Controllers
         // For more details, see http://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public async Task<IActionResult> Create([Bind("HaberId,HaberBaslik,HaberKonu,Haberİcerik,ResimId,KatagoriId,YazarId,HaberTarihi,HaberManset,KonumId")] Haberler haberler)
+        public async Task<IActionResult> Create([Bind("HaberId,HaberBaslik,HaberKonu,Haberİcerik,MansetResim,KatagoriId,YazarId,HaberTarihi,HaberManset,KonumId")] Haberler haberler, IFormFile PictureImage)
         {
+            if (PictureImage != null)
+            {
+                string uzanti = Path.GetExtension(PictureImage.FileName);
+                string yeniisim = Guid.NewGuid().ToString() + uzanti;
+                string yol = Path.Combine(Directory.GetCurrentDirectory() + "/wwwroot/Mansetimg/" + yeniisim);
+                using (var stream = new FileStream(yol, FileMode.Create))
+                {
+                    PictureImage.CopyToAsync(stream);
+                }
+                haberler.MansetResim = yeniisim;
+            }
+
+
+
             if (ModelState.IsValid)
             {
                 _context.Add(haberler);
                 await _context.SaveChangesAsync();
                 return RedirectToAction(nameof(Index));
             }
-            ViewData["KatagoriId"] = new SelectList(_context.katagoris, "KatagoriId", "KatagoriId", haberler.KatagoriId);
+            ViewData["KatagoriId"] = new SelectList(_context.katagoris, "KatagoriId", "KatagoriAdi");
+            ViewData["YazarId"] = new SelectList(_context.Yazarlars, "YazarId", "YazarAd");
+            ViewData["KonumId"] = new SelectList(_context.Konumlars, "KonumId", "KonumAdi");
             return View(haberler);
         }
 
@@ -76,13 +95,16 @@ namespace WebApplication3.Controllers
             {
                 return NotFound();
             }
+            ViewData["KatagoriId"] = new SelectList(_context.katagoris, "KatagoriId", "KatagoriAdi");
+            ViewData["YazarId"] = new SelectList(_context.Yazarlars, "YazarId", "YazarAd");
+            ViewData["KonumId"] = new SelectList(_context.Konumlars, "KonumId", "KonumAdi");
 
             var haberler = await _context.haberlers.FindAsync(id);
             if (haberler == null)
             {
                 return NotFound();
             }
-            ViewData["KatagoriId"] = new SelectList(_context.katagoris, "KatagoriId", "KatagoriId", haberler.KatagoriId);
+            ViewData["KatagoriId"] = new SelectList(_context.katagoris, "KatagoriId", "KatagoriAdi", haberler.KatagoriId);
             return View(haberler);
         }
 
@@ -91,12 +113,28 @@ namespace WebApplication3.Controllers
         // For more details, see http://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public async Task<IActionResult> Edit(int id, [Bind("HaberId,HaberBaslik,HaberKonu,Haberİcerik,ResimId,KatagoriId,YazarId,HaberTarihi,HaberManset,KonumId")] Haberler haberler)
+        public async Task<IActionResult> Edit(int id, [Bind("HaberId,HaberBaslik,HaberKonu,Haberİcerik,MansetResim,KatagoriId,YazarId,HaberTarihi,HaberManset,KonumId")] Haberler haberler,IFormFile PictureImage)
         {
             if (id != haberler.HaberId)
             {
                 return NotFound();
             }
+
+
+            if (PictureImage != null)
+            {
+                string uzanti = Path.GetExtension(PictureImage.FileName);
+                string yeniisim = Guid.NewGuid().ToString() + uzanti;
+                string yol = Path.Combine(Directory.GetCurrentDirectory() + "/wwwroot/Mansetimg/" + yeniisim);
+                using (var stream = new FileStream(yol, FileMode.Create))
+                {
+                    PictureImage.CopyToAsync(stream);
+                }
+                haberler.MansetResim = yeniisim;
+            }
+
+
+            
 
             if (ModelState.IsValid)
             {
@@ -118,7 +156,9 @@ namespace WebApplication3.Controllers
                 }
                 return RedirectToAction(nameof(Index));
             }
-            ViewData["KatagoriId"] = new SelectList(_context.katagoris, "KatagoriId", "KatagoriId", haberler.KatagoriId);
+            ViewData["KatagoriId"] = new SelectList(_context.katagoris, "KatagoriId", "KatagoriAdi");
+            ViewData["YazarId"] = new SelectList(_context.Yazarlars, "YazarId", "YazarAd");
+            ViewData["KonumId"] = new SelectList(_context.Konumlars, "KonumId", "KonumAdi");
             return View(haberler);
         }
 

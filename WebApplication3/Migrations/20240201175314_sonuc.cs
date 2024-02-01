@@ -5,7 +5,7 @@ using Microsoft.EntityFrameworkCore.Migrations;
 
 namespace WebApplication3.Migrations
 {
-    public partial class mig : Migration
+    public partial class sonuc : Migration
     {
         protected override void Up(MigrationBuilder migrationBuilder)
         {
@@ -54,19 +54,6 @@ namespace WebApplication3.Migrations
                 constraints: table =>
                 {
                     table.PrimaryKey("PK_Konumlars", x => x.KonumId);
-                });
-
-            migrationBuilder.CreateTable(
-                name: "Resimlers",
-                columns: table => new
-                {
-                    ResimId = table.Column<int>(type: "int", nullable: false)
-                        .Annotation("SqlServer:Identity", "1, 1"),
-                    ResimAd = table.Column<string>(type: "nvarchar(max)", nullable: false)
-                },
-                constraints: table =>
-                {
-                    table.PrimaryKey("PK_Resimlers", x => x.ResimId);
                 });
 
             migrationBuilder.CreateTable(
@@ -128,12 +115,12 @@ namespace WebApplication3.Migrations
                     HaberBaslik = table.Column<string>(type: "nvarchar(max)", nullable: false),
                     HaberKonu = table.Column<string>(type: "nvarchar(max)", nullable: false),
                     Haberİcerik = table.Column<string>(type: "nvarchar(max)", nullable: false),
-                    ResimId = table.Column<int>(type: "int", nullable: false),
+                    MansetResim = table.Column<string>(type: "nvarchar(max)", nullable: false),
                     KatagoriId = table.Column<int>(type: "int", nullable: false),
                     YazarId = table.Column<int>(type: "int", nullable: false),
                     YazarlarYazarId = table.Column<int>(type: "int", nullable: true),
                     HaberTarihi = table.Column<DateTime>(type: "datetime2", nullable: false),
-                    HaberManset = table.Column<int>(type: "int", nullable: false),
+                    HaberManset = table.Column<int>(type: "int", nullable: true),
                     KonumId = table.Column<int>(type: "int", nullable: false)
                 },
                 constraints: table =>
@@ -150,12 +137,6 @@ namespace WebApplication3.Migrations
                         column: x => x.KonumId,
                         principalTable: "Konumlars",
                         principalColumn: "KonumId",
-                        onDelete: ReferentialAction.Cascade);
-                    table.ForeignKey(
-                        name: "FK_haberlers_Resimlers_ResimId",
-                        column: x => x.ResimId,
-                        principalTable: "Resimlers",
-                        principalColumn: "ResimId",
                         onDelete: ReferentialAction.Cascade);
                     table.ForeignKey(
                         name: "FK_haberlers_Yazarlars_YazarlarYazarId",
@@ -183,6 +164,25 @@ namespace WebApplication3.Migrations
                         principalTable: "Yetkilers",
                         principalColumn: "YetkiId",
                         onDelete: ReferentialAction.Cascade);
+                });
+
+            migrationBuilder.CreateTable(
+                name: "Resimlers",
+                columns: table => new
+                {
+                    ResimId = table.Column<int>(type: "int", nullable: false)
+                        .Annotation("SqlServer:Identity", "1, 1"),
+                    ResimAd = table.Column<string>(type: "nvarchar(max)", nullable: false),
+                    HaberId = table.Column<int>(type: "int", nullable: true)
+                },
+                constraints: table =>
+                {
+                    table.PrimaryKey("PK_Resimlers", x => x.ResimId);
+                    table.ForeignKey(
+                        name: "FK_Resimlers_haberlers_HaberId",
+                        column: x => x.HaberId,
+                        principalTable: "haberlers",
+                        principalColumn: "HaberId");
                 });
 
             migrationBuilder.CreateTable(
@@ -217,11 +217,6 @@ namespace WebApplication3.Migrations
                 column: "KonumId");
 
             migrationBuilder.CreateIndex(
-                name: "IX_haberlers_ResimId",
-                table: "haberlers",
-                column: "ResimId");
-
-            migrationBuilder.CreateIndex(
                 name: "IX_haberlers_YazarlarYazarId",
                 table: "haberlers",
                 column: "YazarlarYazarId");
@@ -235,6 +230,11 @@ namespace WebApplication3.Migrations
                 name: "IX_Reklamlars_KonumlarKonumId",
                 table: "Reklamlars",
                 column: "KonumlarKonumId");
+
+            migrationBuilder.CreateIndex(
+                name: "IX_Resimlers_HaberId",
+                table: "Resimlers",
+                column: "HaberId");
 
             migrationBuilder.CreateIndex(
                 name: "IX_Yorumlars_HaberlersHaberId",
@@ -254,6 +254,9 @@ namespace WebApplication3.Migrations
                 name: "Reklamlars");
 
             migrationBuilder.DropTable(
+                name: "Resimlers");
+
+            migrationBuilder.DropTable(
                 name: "Yorumlars");
 
             migrationBuilder.DropTable(
@@ -267,9 +270,6 @@ namespace WebApplication3.Migrations
 
             migrationBuilder.DropTable(
                 name: "Konumlars");
-
-            migrationBuilder.DropTable(
-                name: "Resimlers");
 
             migrationBuilder.DropTable(
                 name: "Yazarlars");
