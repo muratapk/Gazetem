@@ -2,4 +2,12 @@
     ViewData["Title"] = "Home Page";
     Layout = "~/Views/Shared/_HomeLayout.cshtml";
 }
+<div class="trending-area fix">
+    <div class="container">
+        <div class="trending-main">
+            <!-- Trending Tittle -->
+            @await Component.InvokeAsync("TrendListComponent")
 
+        </div>
+    </div>
+</div>

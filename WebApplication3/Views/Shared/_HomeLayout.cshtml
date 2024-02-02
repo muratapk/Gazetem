@@ -135,7 +135,8 @@
     </header>
 
   <main>
-      @await Component.InvokeAsync("TrendListComponent")
+
+       
       @RenderBody()
   </main>
 
@@ -280,6 +281,6 @@
     <!-- Jquery Plugins, main Jquery -->
     <script src="~/Home/assets/js/plugins.js"></script>
     <script src="~/Home/assets/js/main.js"></script>
-
+    @await RenderSectionAsync("Scripts", required: false)
 </body>
 </html>
