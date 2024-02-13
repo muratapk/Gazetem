@@ -10,6 +10,8 @@ namespace WebApplication3.Models
         public string KulaniciSifre { get; set; } = string.Empty;
         
         public string KulaniciAdi { get; set; } = string.Empty;
+        public string? KullaniciEmail { get; set; } = string.Empty;
+
         [ForeignKey("Yetkiler")]
         public int YetkiId { get; set; }
         

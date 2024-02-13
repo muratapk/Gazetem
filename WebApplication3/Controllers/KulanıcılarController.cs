@@ -22,9 +22,8 @@ namespace WebApplication3.Controllers
         // GET: Kulanıcılar
         public async Task<IActionResult> Index()
         {
-              return _context.Kulanıcılars != null ? 
-                          View(await _context.Kulanıcılars.ToListAsync()) :
-                          Problem("Entity set 'ApplicationDbContext.Kulanıcılars'  is null.");
+            var applicationDbContext = _context.Kulanıcılars.Include(k => k.Yetkiler);
+            return View(await applicationDbContext.ToListAsync());
         }
 
         // GET: Kulanıcılar/Details/5
@@ -36,6 +35,7 @@ namespace WebApplication3.Controllers
             }
 
             var kulanıcılar = await _context.Kulanıcılars
+                .Include(k => k.Yetkiler)
                 .FirstOrDefaultAsync(m => m.KulanıcıId == id);
             if (kulanıcılar == null)
             {
@@ -48,6 +48,7 @@ namespace WebApplication3.Controllers
         // GET: Kulanıcılar/Create
         public IActionResult Create()
         {
+            ViewData["YetkiId"] = new SelectList(_context.Yetkilers, "YetkiId", "YetkiId");
             return View();
         }
 
@@ -56,7 +57,7 @@ namespace WebApplication3.Controllers
         // For more details, see http://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public async Task<IActionResult> Create([Bind("KulanıcıId,KulaniciSifre,KulaniciAdi,YetkiId")] Kulanıcılar kulanıcılar)
+        public async Task<IActionResult> Create([Bind("KulanıcıId,KulaniciSifre,KulaniciAdi,KullaniciEmail,YetkiId")] Kulanıcılar kulanıcılar)
         {
             if (ModelState.IsValid)
             {
@@ -64,6 +65,7 @@ namespace WebApplication3.Controllers
                 await _context.SaveChangesAsync();
                 return RedirectToAction(nameof(Index));
             }
+            ViewData["YetkiId"] = new SelectList(_context.Yetkilers, "YetkiId", "YetkiId", kulanıcılar.YetkiId);
             return View(kulanıcılar);
         }
 
@@ -80,6 +82,7 @@ namespace WebApplication3.Controllers
             {
                 return NotFound();
             }
+            ViewData["YetkiId"] = new SelectList(_context.Yetkilers, "YetkiId", "YetkiId", kulanıcılar.YetkiId);
             return View(kulanıcılar);
         }
 
@@ -88,7 +91,7 @@ namespace WebApplication3.Controllers
         // For more details, see http://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public async Task<IActionResult> Edit(int id, [Bind("KulanıcıId,KulaniciSifre,KulaniciAdi,YetkiId")] Kulanıcılar kulanıcılar)
+        public async Task<IActionResult> Edit(int id, [Bind("KulanıcıId,KulaniciSifre,KulaniciAdi,KullaniciEmail,YetkiId")] Kulanıcılar kulanıcılar)
         {
             if (id != kulanıcılar.KulanıcıId)
             {
@@ -115,6 +118,7 @@ namespace WebApplication3.Controllers
                 }
                 return RedirectToAction(nameof(Index));
             }
+            ViewData["YetkiId"] = new SelectList(_context.Yetkilers, "YetkiId", "YetkiId", kulanıcılar.YetkiId);
             return View(kulanıcılar);
         }
 
@@ -127,6 +131,7 @@ namespace WebApplication3.Controllers
             }
 
             var kulanıcılar = await _context.Kulanıcılars
+                .Include(k => k.Yetkiler)
                 .FirstOrDefaultAsync(m => m.KulanıcıId == id);
             if (kulanıcılar == null)
             {

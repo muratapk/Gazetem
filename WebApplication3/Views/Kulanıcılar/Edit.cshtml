@@ -25,8 +25,13 @@
                 <span asp-validation-for="KulaniciAdi" class="text-danger"></span>
             </div>
             <div class="form-group">
+                <label asp-for="KullaniciEmail" class="control-label"></label>
+                <input asp-for="KullaniciEmail" class="form-control" />
+                <span asp-validation-for="KullaniciEmail" class="text-danger"></span>
+            </div>
+            <div class="form-group">
                 <label asp-for="YetkiId" class="control-label"></label>
-                <input asp-for="YetkiId" class="form-control" />
+                <select asp-for="YetkiId" class="form-control" asp-items="ViewBag.YetkiId"></select>
                 <span asp-validation-for="YetkiId" class="text-danger"></span>
             </div>
             <div class="form-group">
